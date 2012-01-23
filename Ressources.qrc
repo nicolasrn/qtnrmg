@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/logo/positionnement">
+        <file alias="DB">Ressources/DB.png</file>
+        <file alias="DH">Ressources/DH.png</file>
+        <file alias="DM">Ressources/DM.png</file>
+        <file alias="GB">Ressources/GB.png</file>
+        <file alias="GH">Ressources/GH.png</file>
+        <file alias="GM">Ressources/GM.png</file>
+        <file alias="MB">Ressources/MB.png</file>
+        <file alias="MH">Ressources/MH.png</file>
+        <file alias="MM">Ressources/MM.png</file>
+    </qresource>
+    <qresource prefix="/frames">
+        <file alias="0">Ressources/0.PNG</file>
+        <file alias="1">Ressources/1.PNG</file>
+        <file alias="2">Ressources/2.PNG</file>
+        <file alias="3">Ressources/3.PNG</file>
+        <file alias="4">Ressources/4.PNG</file>
+        <file alias="5">Ressources/5.PNG</file>
+        <file alias="6">Ressources/6.PNG</file>
+        <file alias="7">Ressources/7.PNG</file>
+        <file alias="8">Ressources/8.PNG</file>
+        <file alias="9">Ressources/9.PNG</file>
+        <file alias="10">Ressources/10.PNG</file>
+        <file alias="11">Ressources/11.PNG</file>
+        <file alias="12">Ressources/12.PNG</file>
+        <file alias="13">Ressources/13.PNG</file>
+        <file alias="14">Ressources/14.PNG</file>
+        <file alias="15">Ressources/15.PNG</file>
+        <file alias="16">Ressources/16.PNG</file>
+        <file alias="17">Ressources/17.PNG</file>
+    </qresource>
+    <qresource prefix="/divers">
+        <file alias="vide">Ressources/vide.png</file>
+    </qresource>
+</RCC>
