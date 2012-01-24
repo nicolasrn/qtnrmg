@@ -20,7 +20,7 @@
       <x>680</x>
       <y>30</y>
       <width>291</width>
-      <height>251</height>
+      <height>261</height>
      </rect>
     </property>
     <property name="title">
@@ -705,7 +705,7 @@
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>651</width>
+      <width>441</width>
       <height>381</height>
      </rect>
     </property>
@@ -714,7 +714,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>651</width>
+       <width>421</width>
        <height>381</height>
       </rect>
      </property>
@@ -773,6 +773,18 @@
      </property>
     </widget>
    </widget>
+   <widget class="QWidget" name="MonTresGrandWidget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>9</x>
+      <y>20</y>
+      <width>661</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_3"/>
+   </widget>
+   <zorder>MonTresGrandWidget</zorder>
    <zorder>groupPetiteImage</zorder>
    <zorder>groupDiapo</zorder>
    <zorder>monGrandWidget</zorder>
