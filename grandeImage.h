@@ -13,7 +13,6 @@ class GrandeImage
 private:
     int nbImages;
     QVector <ElementGrandeImage*> *vectImg;
-    QPixmap *im; //logo
     QPixmap *imageDefault; //image par default quand la case est vide
 
     FrameContener * grille;

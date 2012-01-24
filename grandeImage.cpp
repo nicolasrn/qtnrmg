@@ -4,8 +4,7 @@ GrandeImage::GrandeImage(QWidget *ref, Bordure *bordure)
 {
     nbImages = 0 ;
     vectImg = NULL;
-    im = NULL;
-    imageDefault = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/vide.png")));
+    imageDefault = new QPixmap(QPixmap::fromImage(QImage(":/divers/vide")));
 
     grille0(ref, bordure);
 }
@@ -19,14 +18,12 @@ void GrandeImage::grille0(QWidget *ref, Bordure *bordure)
 {
     grille = new FrameContener(ref, FrameContener::VERTICALE);
     nbImages = 1;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/0.png"))); //logo
     grille->AddElement(new ElementGrandeImage(ref, &imageDefault->scaled(grille->width(),grille->height(), Qt::IgnoreAspectRatio), bordure));
 }
 
 void GrandeImage::grille1(QWidget *ref, Bordure *bordure)
 {
     nbImages = 2;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/1.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 
@@ -37,7 +34,6 @@ void GrandeImage::grille1(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille2(QWidget *ref, Bordure *bordure)
 {
     nbImages = 2;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/2.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::VERTICALE);
 
@@ -49,7 +45,6 @@ void GrandeImage::grille2(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille3(QWidget *ref, Bordure *bordure)
 {
     nbImages = 3;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/3.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::VERTICALE);
 
@@ -65,7 +60,6 @@ void GrandeImage::grille3(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille4(QWidget *ref, Bordure *bordure)
 {
     nbImages = 3;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/4.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::VERTICALE);
 
@@ -80,8 +74,6 @@ void GrandeImage::grille4(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille5(QWidget *ref, Bordure *bordure)
 {
     nbImages = 3;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/5.png"))); //logo
-
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 
     FrameContener * g0 = new FrameContener(ref, FrameContener::VERTICALE);
@@ -96,7 +88,6 @@ void GrandeImage::grille5(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille6(QWidget *ref, Bordure *bordure)
 {
     nbImages = 3;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/6.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 
@@ -112,7 +103,6 @@ void GrandeImage::grille6(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille7(QWidget *ref, Bordure *bordure)
 {
     nbImages = 3;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/7.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::VERTICALE);
 
@@ -125,7 +115,6 @@ void GrandeImage::grille7(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille8(QWidget *ref, Bordure *bordure)
 {
     nbImages = 3;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/8.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 
@@ -139,7 +128,6 @@ void GrandeImage::grille8(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille9(QWidget *ref, Bordure *bordure)
 {
     nbImages = 4;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/9.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 
@@ -159,7 +147,6 @@ void GrandeImage::grille9(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille10(QWidget *ref, Bordure *bordure)
 {
     nbImages = 4;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/10.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::VERTICALE);
 
@@ -176,7 +163,6 @@ void GrandeImage::grille10(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille11(QWidget *ref, Bordure *bordure)
 {
     nbImages = 4;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/11.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::VERTICALE);
 
@@ -193,7 +179,6 @@ void GrandeImage::grille11(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille12(QWidget *ref, Bordure *bordure)
 {
     nbImages = 4;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/12.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 
@@ -210,7 +195,6 @@ void GrandeImage::grille12(QWidget *ref, Bordure *bordure)
 void GrandeImage::grille13(QWidget *ref, Bordure *bordure)
 {
     nbImages = 4;
-    im = new QPixmap(QPixmap::fromImage(QImage("D:/Documents/Images/Qt/13.png"))); //logo
 
     grille = new FrameContener(ref, FrameContener::HORIZONTALE);
 

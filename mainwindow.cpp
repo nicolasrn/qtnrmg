@@ -42,13 +42,6 @@ MainWindow::MainWindow(QWidget *parent) :
     gdeImage = new GrandeImage(this, bordure);
     gdeImage->getGrille()->Affichage(ui->monGrandLayout);
 
-    //qDebug() << ui->monGrandLayout->takeAt();
-
-    /*viderLayout(bordure);
-    gdeImage->grille0(this,bordure);
-    gdeImage->getGrille()->Affichage(ui->monGrandLayout);*/
-
-
 }
 
 MainWindow::~MainWindow()
@@ -250,7 +243,6 @@ void MainWindow::changeEpaisseur()
 
 void MainWindow::viderLayout(Bordure * bordure)
 {
-    qDebug() <<  "je vide";
     Bordure *temp = new Bordure(*bordure);
     QLayoutItem *item;
        while ((item = ui->monGrandLayout->takeAt(0)) != 0) {
