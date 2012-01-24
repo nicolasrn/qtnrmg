@@ -4,7 +4,19 @@
 #include "frameContener.h"
 #include "elementGrandeImage.h"
 
+int min (int a, int b)
+{
+    if (a<b)
+        return a;
+    return b;
+}
 
+int max (int a, int b)
+{
+    if (a<b)
+        return b;
+    return a;
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -21,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->rondeur, SIGNAL(valueChanged(int)), this, SLOT(changeRondeur()) );
     connect(ui->epaisseur, SIGNAL(valueChanged(int)), this, SLOT(changeEpaisseur()) );
     connect(ui->frames, SIGNAL(currentIndexChanged(int)), this, SLOT(changeFrame(int)));
+    connect(ui->taille, SIGNAL(currentIndexChanged(int)), this, SLOT(changeTaille(int)));
 
     ColorierFond(QColor(0,0,255));
     ui->monGrandWidget->setAutoFillBackground(true);
@@ -42,6 +55,10 @@ MainWindow::MainWindow(QWidget *parent) :
     gdeImage = new GrandeImage(this, bordure);
     gdeImage->getGrille()->Affichage(ui->monGrandLayout);
 
+    //ui->monGrandWidget->setFixedHeight(ui->MonTresGrandWidget->height());
+    //ui->monGrandWidget->setFixedWidth(ui->MonTresGrandWidget->width());
+
+    ui->monGrandWidget->setLayout(ui->monGrandLayout);
 }
 
 MainWindow::~MainWindow()
@@ -304,4 +321,68 @@ void MainWindow::changeFrame(int i)
             break;
     }
     gdeImage->getGrille()->Affichage(ui->monGrandLayout);
+}
+
+void MainWindow::changeTaille(int i)
+{
+    int temp;
+    switch (i)
+    {
+        case 0:
+            temp = min(ui->MonTresGrandWidget->height(),ui->MonTresGrandWidget->width());
+            qDebug() << temp;
+            ui->monGrandWidget->setFixedHeight(temp);
+            ui->monGrandWidget->setFixedWidth(temp);
+            break;
+        case 1:
+            if (ui->MonTresGrandWidget->width()/2 < ui->MonTresGrandWidget->height() )
+                temp = ui->MonTresGrandWidget->width() /2;
+            else
+                temp = ui->MonTresGrandWidget->height();
+            qDebug() << temp;
+            ui->monGrandWidget->setFixedHeight(temp);
+            ui->monGrandWidget->setFixedWidth(2 * temp);
+            break;
+        case 2:
+            if (ui->MonTresGrandWidget->width()/3 < ui->MonTresGrandWidget->height()/2 )
+                    temp = ui->MonTresGrandWidget->width() /3;
+                else
+                    temp = ui->MonTresGrandWidget->height()/2;
+            qDebug() << temp;
+            ui->monGrandWidget->setFixedHeight(2 * temp);
+            ui->monGrandWidget->setFixedWidth(3 * temp);
+            break;
+        case 3:
+            if (ui->MonTresGrandWidget->width()/4 < ui->MonTresGrandWidget->height()/3 )
+                    temp = ui->MonTresGrandWidget->width() /4;
+                else
+                    temp = ui->MonTresGrandWidget->height()/3;
+            qDebug() << temp;
+            ui->monGrandWidget->setFixedHeight(3 * temp);
+            ui->monGrandWidget->setFixedWidth(4 * temp);
+            break;
+        case 4:
+            if (ui->MonTresGrandWidget->width()/5 < ui->MonTresGrandWidget->height()/4 )
+                    temp = ui->MonTresGrandWidget->width() /5;
+                else
+                    temp = ui->MonTresGrandWidget->height()/4;
+            qDebug() << temp;
+            ui->monGrandWidget->setFixedHeight(4 * temp);
+            ui->monGrandWidget->setFixedWidth(5 * temp);
+            break;
+        case 5:
+            if (ui->MonTresGrandWidget->width()/16 < ui->MonTresGrandWidget->height()/9 )
+                    temp = ui->MonTresGrandWidget->width() /16;
+                else
+                    temp = ui->MonTresGrandWidget->height()/9;
+            qDebug() << temp;
+            ui->monGrandWidget->setFixedHeight(9 * temp);
+            ui->monGrandWidget->setFixedWidth(16 * temp);
+            break;
+
+
+
+
+    }
+
 }

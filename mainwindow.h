@@ -49,6 +49,7 @@ private slots:
     void changeRondeur();
     void changeEpaisseur();
     void changeFrame(int i);
+    void changeTaille(int i);
 
 public slots:
     void receptionMessage(ElementGrandeImage *l);
