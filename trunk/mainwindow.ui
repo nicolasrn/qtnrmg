@@ -59,7 +59,7 @@
           </item>
           <item>
            <property name="text">
-            <string>2:3</string>
+            <string>3:2</string>
            </property>
           </item>
           <item>
@@ -704,9 +704,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>20</y>
       <width>651</width>
-      <height>391</height>
+      <height>381</height>
      </rect>
     </property>
     <widget class="QWidget" name="verticalLayoutWidget_3">
@@ -715,10 +715,17 @@
        <x>0</x>
        <y>0</y>
        <width>651</width>
-       <height>391</height>
+       <height>381</height>
       </rect>
      </property>
-     <layout class="QVBoxLayout" name="monGrandLayout"/>
+     <layout class="QVBoxLayout" name="monGrandLayout">
+      <property name="spacing">
+       <number>2</number>
+      </property>
+      <property name="sizeConstraint">
+       <enum>QLayout::SetDefaultConstraint</enum>
+      </property>
+     </layout>
     </widget>
    </widget>
    <widget class="QGroupBox" name="groupDiapo">
@@ -766,11 +773,10 @@
      </property>
     </widget>
    </widget>
-   <zorder>groupeGdeImage</zorder>
    <zorder>groupPetiteImage</zorder>
    <zorder>groupDiapo</zorder>
    <zorder>monGrandWidget</zorder>
-   <zorder></zorder>
+   <zorder>groupeGdeImage</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -785,7 +791,6 @@
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="actionNouveau"/>
     <addaction name="actionSauvegarder"/>
     <addaction name="actionQuitter"/>
    </widget>
