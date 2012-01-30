@@ -2,6 +2,7 @@
 #define BORDURE_H
 
 #include <QColor>
+#include <QDebug>
 
 class Bordure : public QObject
 {
@@ -15,9 +16,11 @@ public:
     void setTailleBordure(int i);
     void setRadiusBordure(int i);
     void setCouleurBordure(QColor * c);
+
+
+    QColor* couleurBordure;
 private:
     int tailleBordure;
-    QColor* couleurBordure;
     int radiusBordure;
 signals:
     void modificationBordure();

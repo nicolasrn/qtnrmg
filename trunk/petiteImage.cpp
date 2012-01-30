@@ -7,7 +7,15 @@ PetiteImage::PetiteImage(QString chem, int hauteur):QGraphicsPixmapItem()
     pixDiapo = new QPixmap(QPixmap::fromImage(img->scaledToHeight(hauteur)));
     this->setPixmap(*pixDiapo);
     this->setFlag(QGraphicsItem::ItemIsSelectable, true);
-    select = false;
+}
+
+PetiteImage::PetiteImage(const PetiteImage &i)
+{
+    chemin = i.chemin;
+    img = new QImage(chemin);
+    pixDiapo = new QPixmap(*i.pixDiapo);
+    this->setPixmap(*pixDiapo);
+    this->setFlag(QGraphicsItem::ItemIsSelectable, true);
 }
 
 PetiteImage::~PetiteImage()

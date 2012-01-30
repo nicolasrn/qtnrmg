@@ -1,13 +1,5 @@
 #include "elementGrandeImage.h"
 
-int MAX(int x , int y )
-{
-    if ( x > y) {
-     return x;
-    } else {
-     return y;
-    }
-}
 
 void monLabel::mousePressEvent(QMouseEvent *ev)
 {
@@ -15,9 +7,11 @@ void monLabel::mousePressEvent(QMouseEvent *ev)
     emit envoyerMessage();
 }
 
-ElementGrandeImage::ElementGrandeImage(QWidget *ref, QPixmap *i, Bordure* b) : MaFrame(ref)
+
+ElementGrandeImage::ElementGrandeImage(QWidget *ref, QPixmap *qpix, Bordure* b, PetiteImage *imageBase) : MaFrame(ref)
 {
-    img = i;
+    img = qpix;
+    image = imageBase;
     bordure = b;
     connect(bordure,SIGNAL(modificationBordure()),this,SLOT(modifierBordure()));
     lab = new monLabel();
@@ -25,13 +19,46 @@ ElementGrandeImage::ElementGrandeImage(QWidget *ref, QPixmap *i, Bordure* b) : M
     lab->setAlignment(Qt::AlignCenter);
     lab->setPixmap(*img);
     connect(lab, SIGNAL(envoyerMessage()), this, SLOT(receptionMessage()));
+    netb = false;
+    sep = false;
+    neg = false;
 }
 
+ElementGrandeImage::ElementGrandeImage(const ElementGrandeImage  &e) : MaFrame(e.ref)
+{
+    img = new QPixmap(*e.img);
 
+    netb = e.netb;
+    sep = e.sep;
+    neg = e.neg;
+
+    if (netb)
+        img = toNoirEtBlanc();
+    if (sep)
+        img = toSepia();
+    if (neg)
+        img = toNegatif();
+
+    image = new PetiteImage(*e.image);
+    bordure = e.bordure;
+
+
+    connect(bordure,SIGNAL(modificationBordure()),this,SLOT(modifierBordure()));
+    lab = new monLabel(*e.lab);
+    modifierBordure();
+    lab->setAlignment(Qt::AlignCenter);
+    lab->setPixmap(*img);
+    connect(lab, SIGNAL(envoyerMessage()), this, SLOT(receptionMessage()));
+    modifierBordure();
+
+
+
+
+}
 
 void ElementGrandeImage::Affichage(QLayout *lay)
 {
-    qDebug() << "img: ";
+    //qDebug() << "img: ";
     lay->addWidget(lab);
     connect(this, SIGNAL(envoyerMessage(ElementGrandeImage*)), this->ref, SLOT(receptionMessage(ElementGrandeImage*)));
 }
@@ -50,6 +77,7 @@ void ElementGrandeImage::receptionMessage()
 
 QPixmap * ElementGrandeImage::toSepia()
 {
+    sep = true;
     QImage income = img->toImage();
     QImage base = income.convertToFormat(QImage::Format_RGB32);
 
@@ -82,6 +110,7 @@ QPixmap * ElementGrandeImage::toSepia()
 
 QPixmap * ElementGrandeImage::toNegatif()
 {
+    neg = true;
     QImage income = img->toImage();
     QPixmap *result;
     QImage base = income.convertToFormat(QImage::Format_RGB32);
@@ -93,6 +122,8 @@ QPixmap * ElementGrandeImage::toNegatif()
 
 QPixmap * ElementGrandeImage::toNoirEtBlanc()
 {
+    qDebug() << "noir et blanc";
+    netb = true;
     QImage income = img->toImage();
     QImage base = income.convertToFormat(QImage::Format_RGB32);
 
@@ -128,14 +159,40 @@ void ElementGrandeImage::modifierBordure()
     int b;
     bordure->getCouleurBordure()->getRgb(&r,&g,&b);
 
-    qDebug() << "rouge:" + QString::number(r) + " vert:"+ QString::number(g) + " bleu:" + QString::number(b);
+    //qDebug() << "rouge:" + QString::number(r) + " vert:"+ QString::number(g) + " bleu:" + QString::number(b);
 
     QString s = "QLabel{ border-style: solid; border-width:"+QString::number(bordure->getTailleBordure())+"px; border-color: rgb("+ QString::number(r) + ","+ QString::number(g) +","+ QString::number(b) +"); border-radius:"+QString::number(bordure->getRadiusBordure())+"px ; }";
-    qDebug() << s;
+    //qDebug() << s;
     lab->setStyleSheet(s);
 }
 
 monLabel * ElementGrandeImage::getLab()
 {
     return lab;
+}
+
+void ElementGrandeImage::Resizer(QSize s)
+{
+
+
+    //img = new QPixmap(QPixmap::fromImage(image.scaled(s,  Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation)));
+    //delete img;
+    //img = new QPixmap(QPixmap::fromImage(image->scaled(this->getLab()->size(),  Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation)));
+    this->ModifierImage((image->getPixDeTaille(s.height(), s.width())));
+
+    modifierBordure();
+}
+
+
+
+
+void ElementGrandeImage::setImage(PetiteImage *i)
+{
+    image = i;
+}
+
+void ElementGrandeImage::setBordure(Bordure *b)
+{
+    bordure =  b;
+    qDebug() << b;
 }

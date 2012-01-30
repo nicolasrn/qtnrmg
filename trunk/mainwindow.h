@@ -50,6 +50,9 @@ private slots:
     void changeEpaisseur();
     void changeFrame(int i);
     void changeTaille(int i);
+    void toutResizer();
+
+    void on_actionSauvegarder_triggered();
 
 public slots:
     void receptionMessage(ElementGrandeImage *l);
@@ -58,8 +61,12 @@ private:
     Ui::MainWindow *ui;
     QVector <PetiteImage*> *vectImage;
     QGraphicsScene *scene;
-    ElementGrandeImage *elementSelectione;
     int pos; //position de la prochaine image dans le diapo
+
+    QVector <ElementGrandeImage*> vectElem;
+    ElementGrandeImage *elementSelectione;
+
+
     void ColorierFond(QColor c);
     Bordure * bordure;
     GrandeImage * gdeImage;
@@ -69,6 +76,7 @@ private:
 
 
     void viderLayout(Bordure * bordure);
+    void mettreAJourBordure();
 
 
 };
