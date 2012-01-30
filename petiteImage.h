@@ -11,10 +11,10 @@ class PetiteImage: public QGraphicsPixmapItem
     QString chemin;
     QImage *img;
     QPixmap * pixDiapo;
-    bool select;
 
   public:
     PetiteImage(QString chem, int hauteur);
+    PetiteImage(const PetiteImage &i);
     ~PetiteImage();
 
     QString getChemin();

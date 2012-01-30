@@ -18,7 +18,22 @@ int max (int a, int b)
     return a;
 }
 
-MainWindow::MainWindow(QWidget *parent) :
+QVector<ElementGrandeImage *> copieDe(QVector<ElementGrandeImage *> v, Bordure* b)
+{
+    qDebug() << "je copie dans main, taille de v =" << v.size();
+    QVector<ElementGrandeImage *> v2;
+
+    for(int i=0; i<v.size(); i++)
+    {
+        qDebug() << v[i];
+        v2.append(new ElementGrandeImage(*v[i]));
+        v2[i]->setBordure(b);
+    }
+    qDebug() << v2;
+    return v2;
+}
+
+MainWindow::MainWindow(QWidget *parent) : vectElem(QVector<ElementGrandeImage *>()),
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -34,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->epaisseur, SIGNAL(valueChanged(int)), this, SLOT(changeEpaisseur()) );
     connect(ui->frames, SIGNAL(currentIndexChanged(int)), this, SLOT(changeFrame(int)));
     connect(ui->taille, SIGNAL(currentIndexChanged(int)), this, SLOT(changeTaille(int)));
+    connect(ui->actionQuitter,SIGNAL(triggered()),qApp,SLOT(quit()));
 
     ColorierFond(QColor(0,0,255));
     ui->monGrandWidget->setAutoFillBackground(true);
@@ -52,13 +68,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     currentItem = NULL;
 
-    gdeImage = new GrandeImage(this, bordure);
+    gdeImage = new GrandeImage(this, bordure, vectElem);
     gdeImage->getGrille()->Affichage(ui->monGrandLayout);
 
-    //ui->monGrandWidget->setFixedHeight(ui->MonTresGrandWidget->height());
-    //ui->monGrandWidget->setFixedWidth(ui->MonTresGrandWidget->width());
 
     ui->monGrandWidget->setLayout(ui->monGrandLayout);
+
+    changeFrame(ui->frames->currentIndex());
 }
 
 MainWindow::~MainWindow()
@@ -100,15 +116,18 @@ void MainWindow::on_btnModifierFond_clicked()
 
 void MainWindow::on_btnCouleurCadres_clicked()
 {
-    QColor c = QColorDialog::getColor();
-    bordure->setCouleurBordure(&c);
+    QColor *c = new QColor(QColorDialog::getColor());
+    bordure->setCouleurBordure(c);
 
-    QBrush b(c);
+    QBrush b(*c);
     b.setStyle(Qt::SolidPattern);
     QPalette pal;
     pal.setBrush(QPalette::Active, QPalette::Window, b);
 
     ui->couleurCadres->setPalette(pal);
+    mettreAJourBordure();
+    //repaint();
+    changeFrame(ui->frames->currentIndex());
 }
 
 void MainWindow::on_btnSepia_clicked()
@@ -242,7 +261,10 @@ void MainWindow::receptionMessage(ElementGrandeImage *l)
     elementSelectione = l;
     if (currentItem != NULL)
     {
+        qDebug() << "test: " << elementSelectione->size();
+        elementSelectione->setImage((((PetiteImage*)currentItem)));
         elementSelectione->ModifierImage(((PetiteImage*)currentItem)->getPixDeTaille(elementSelectione->getLab()->height(), elementSelectione->getLab()->width()));
+        qDebug() << "test2: " << elementSelectione->size();
         currentItem->setSelected(false);
         currentItem = NULL;
     }
@@ -250,16 +272,30 @@ void MainWindow::receptionMessage(ElementGrandeImage *l)
 
 void MainWindow::changeRondeur()
 {
+    qDebug() <<"changer rondeur";
+    qDebug() << bordure;
+    qDebug() << "ici";
     bordure->setRadiusBordure(ui->rondeur->value());
+    mettreAJourBordure();
+    changeFrame(ui->frames->currentIndex());
+    //repaint();
 }
 
 void MainWindow::changeEpaisseur()
 {
+    qDebug() <<"changer epaisseur";
+
     bordure->setTailleBordure(ui->epaisseur->value());
+    mettreAJourBordure();
+    changeFrame(ui->frames->currentIndex());
+    //repaint();
 }
+
+
 
 void MainWindow::viderLayout(Bordure * bordure)
 {
+    qDebug() <<"je vide le layout";
     Bordure *temp = new Bordure(*bordure);
     QLayoutItem *item;
        while ((item = ui->monGrandLayout->takeAt(0)) != 0) {
@@ -269,58 +305,64 @@ void MainWindow::viderLayout(Bordure * bordure)
        //ui->monGrandLayout->removeItem();
        }
        this->bordure = temp;
+       mettreAJourBordure();
 }
 
 void MainWindow::changeFrame(int i)
 {
+    //toutResizer();
+    QVector<ElementGrandeImage *> vectTemp = copieDe(vectElem, bordure);
     viderLayout(bordure);
 
     switch (i)
     {
         case 0:
-            gdeImage->grille0(this,bordure);
+            vectElem = gdeImage->grille0(this,bordure, vectTemp);
             break;
         case 1:
-            gdeImage->grille1(this,bordure);
+            vectElem = gdeImage->grille1(this,bordure, vectTemp);
             break;
         case 2:
-            gdeImage->grille2(this,bordure);
+            vectElem = gdeImage->grille2(this,bordure, vectTemp);
             break;
         case 3:
-            gdeImage->grille3(this,bordure);
+            vectElem = gdeImage->grille3(this,bordure, vectTemp);
             break;
         case 4:
-            gdeImage->grille4(this,bordure);
+            vectElem = gdeImage->grille4(this,bordure, vectTemp);
             break;
         case 5:
-            gdeImage->grille5(this,bordure);
+            vectElem = gdeImage->grille5(this,bordure, vectTemp);
             break;
         case 6:
-            gdeImage->grille6(this,bordure);
+            vectElem = gdeImage->grille6(this,bordure, vectTemp);
             break;
         case 7:
-            gdeImage->grille7(this,bordure);
+            vectElem = gdeImage->grille7(this,bordure, vectTemp);
             break;
         case 8:
-            gdeImage->grille8(this,bordure);
+            vectElem = gdeImage->grille8(this,bordure, vectTemp);
             break;
         case 9:
-            gdeImage->grille9(this,bordure);
+            vectElem = gdeImage->grille9(this,bordure, vectTemp);
             break;
         case 10:
-            gdeImage->grille10(this,bordure);
+            vectElem = gdeImage->grille10(this,bordure, vectTemp);
             break;
         case 11:
-            gdeImage->grille11(this,bordure);
+            vectElem = gdeImage->grille11(this,bordure, vectTemp);
             break;
         case 12:
-            gdeImage->grille12(this,bordure);
+            vectElem = gdeImage->grille12(this,bordure, vectTemp);
             break;
         case 13:
-            gdeImage->grille13(this,bordure);
+            vectElem = gdeImage->grille13(this,bordure, vectTemp);
             break;
     }
+    toutResizer();
+    elementSelectione = NULL;
     gdeImage->getGrille()->Affichage(ui->monGrandLayout);
+    vectTemp.clear();
 }
 
 void MainWindow::changeTaille(int i)
@@ -380,9 +422,38 @@ void MainWindow::changeTaille(int i)
             ui->monGrandWidget->setFixedWidth(16 * temp);
             break;
 
-
-
+        gdeImage->getGrille()->Affichage(ui->monGrandLayout);
 
     }
+
+}
+
+void MainWindow::toutResizer()
+{
+    for (int i = 0; i<vectElem.size(); i++)
+    {
+        qDebug() <<"num de l'element resizé" << i;
+        //vectElem[i]->adjustSize();
+        //vectElem[i]->setBaseSize(vectElem[i]->getLab()->size());
+
+        vectElem[i]->Resizer(vectElem[i]->getLab()->size());
+    }
+}
+
+void MainWindow::mettreAJourBordure()
+{
+    for (int i = 0; i<vectElem.size(); i++)
+    {
+        vectElem[i]->setBordure(bordure);
+    }
+}
+
+void MainWindow::on_actionSauvegarder_triggered()
+{
+    QString filename = QFileDialog::getSaveFileName( this, "Enregistrer", QString(), "Images (*.jpeg)" );
+      if ( !filename.isEmpty() )
+      {
+        QPixmap::grabWidget(ui->monGrandWidget).save(filename);
+      }
 
 }

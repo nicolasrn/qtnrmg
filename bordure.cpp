@@ -31,6 +31,7 @@ QColor* Bordure::getCouleurBordure()
 
 void Bordure::setRadiusBordure(int i)
 {
+    qDebug() << "changement dans bordure";
     radiusBordure = i;
     emit modificationBordure();
 }
