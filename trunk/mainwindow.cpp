@@ -75,6 +75,8 @@ MainWindow::MainWindow(QWidget *parent) : vectElem(QVector<ElementGrandeImage *>
     ui->monGrandWidget->setLayout(ui->monGrandLayout);
 
     changeFrame(ui->frames->currentIndex());
+
+    changeTaille(ui->taille->currentIndex());
 }
 
 MainWindow::~MainWindow()
@@ -368,55 +370,57 @@ void MainWindow::changeFrame(int i)
 void MainWindow::changeTaille(int i)
 {
     int temp;
+    int heightMax = ui->MonTresGrandWidget->height() -10;
+    int widthMax = ui->MonTresGrandWidget->width() -10;
     switch (i)
     {
         case 0:
-            temp = min(ui->MonTresGrandWidget->height(),ui->MonTresGrandWidget->width());
+            temp = min(heightMax,widthMax);
             qDebug() << temp;
             ui->monGrandWidget->setFixedHeight(temp);
             ui->monGrandWidget->setFixedWidth(temp);
             break;
         case 1:
-            if (ui->MonTresGrandWidget->width()/2 < ui->MonTresGrandWidget->height() )
-                temp = ui->MonTresGrandWidget->width() /2;
+            if (widthMax/2 < heightMax )
+                temp = widthMax /2;
             else
-                temp = ui->MonTresGrandWidget->height();
+                temp = heightMax;
             qDebug() << temp;
             ui->monGrandWidget->setFixedHeight(temp);
             ui->monGrandWidget->setFixedWidth(2 * temp);
             break;
         case 2:
-            if (ui->MonTresGrandWidget->width()/3 < ui->MonTresGrandWidget->height()/2 )
-                    temp = ui->MonTresGrandWidget->width() /3;
+            if (widthMax/3 < heightMax/2 )
+                    temp = widthMax /3;
                 else
-                    temp = ui->MonTresGrandWidget->height()/2;
+                    temp = heightMax/2;
             qDebug() << temp;
             ui->monGrandWidget->setFixedHeight(2 * temp);
             ui->monGrandWidget->setFixedWidth(3 * temp);
             break;
         case 3:
-            if (ui->MonTresGrandWidget->width()/4 < ui->MonTresGrandWidget->height()/3 )
-                    temp = ui->MonTresGrandWidget->width() /4;
+            if (widthMax/4 < heightMax/3 )
+                    temp = widthMax /4;
                 else
-                    temp = ui->MonTresGrandWidget->height()/3;
+                    temp = heightMax/3;
             qDebug() << temp;
             ui->monGrandWidget->setFixedHeight(3 * temp);
             ui->monGrandWidget->setFixedWidth(4 * temp);
             break;
         case 4:
-            if (ui->MonTresGrandWidget->width()/5 < ui->MonTresGrandWidget->height()/4 )
-                    temp = ui->MonTresGrandWidget->width() /5;
+            if (widthMax/5 < heightMax/4 )
+                    temp = widthMax /5;
                 else
-                    temp = ui->MonTresGrandWidget->height()/4;
+                    temp = heightMax/4;
             qDebug() << temp;
             ui->monGrandWidget->setFixedHeight(4 * temp);
             ui->monGrandWidget->setFixedWidth(5 * temp);
             break;
         case 5:
-            if (ui->MonTresGrandWidget->width()/16 < ui->MonTresGrandWidget->height()/9 )
-                    temp = ui->MonTresGrandWidget->width() /16;
+            if (widthMax/16 < heightMax/9 )
+                    temp = widthMax /16;
                 else
-                    temp = ui->MonTresGrandWidget->height()/9;
+                    temp = heightMax/9;
             qDebug() << temp;
             ui->monGrandWidget->setFixedHeight(9 * temp);
             ui->monGrandWidget->setFixedWidth(16 * temp);
